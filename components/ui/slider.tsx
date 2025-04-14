@@ -94,7 +94,7 @@ const SliderOne = () => {
           <div className="rounded-md px-2 md:p-10">
             <Image
               priority
-              src="/images/image-business.jpg"
+              src="/images/image-business.jpeg"
               alt="logo"
               width={500}
               height={500}
