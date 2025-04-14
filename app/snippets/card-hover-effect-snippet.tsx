@@ -103,8 +103,20 @@ export const projects = [
       </div>
     ),
     title: "E-commerce Store",
-    description:
-      "From small stores to large online retailers, we have the expertise to build a store that will help you grow your business.",
+    description: (
+      <>
+        From small stores to large online retailers, we have the expertise to build a store that will help you grow your business.{" "}
+        <a
+          href="https://www.newmew.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-red-600 font-semibold hover:underline"
+        >
+          Visit Store
+        </a>
+      </>
+    ),
+    link: "https://www.newmew.com/",
   },
   {
     icon: (
@@ -147,3 +159,4 @@ export const projects = [
       "We offer support for all our clients. We are here to help you with any issues or questions you may have.",
   },
 ];
+
