@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { AlignJustify, X } from "lucide-react";
 
 import Image from "next/image";
@@ -12,7 +11,7 @@ interface NavbarProps {
   scrollToGraphicDesign: () => void;
   scrollToShopifyStores: () => void;
   scrollToBrands: () => void;
-  scrollToServices: () => void; // Define scrollToServices function
+  scrollToServices: () => void;
 }
 
 const Navbar = ({
@@ -20,7 +19,7 @@ const Navbar = ({
   scrollToGraphicDesign,
   scrollToShopifyStores,
   scrollToBrands,
-  scrollToServices, // Add scrollToServices to props
+  scrollToServices,
 }: NavbarProps) => {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
 
@@ -34,19 +33,23 @@ const Navbar = ({
 
   return (
     <div>
-      <div className="p-6 md:p-10 flex items-center justify-between z-50">
-        <div>
+      <div className="py-4 px-6 md:py-6 md:px-10 flex items-center justify-between z-50">
+        {/* ✅ Logo Section */}
+        <div className="flex items-center">
           <Link className="cursor-pointer" href="/">
-            <Image
-              priority
-              src="/logo/logo.svg"
-              alt="Logo"
-              width={100}
-              height={100}
-              className="w-10 h-10 md:w-14 md:h-14"
-            />
+            <div className="relative w-32 h-32 md:w-48 md:h-48">
+              <Image
+                priority
+                src="/logo/logo.png"
+                alt="Logo"
+                fill
+                className="object-contain"
+              />
+            </div>
           </Link>
         </div>
+
+        {/* ✅ Desktop Menu */}
         <div
           className="cursor-pointer hidden 
             md:flex space-x-10 items-center
@@ -61,22 +64,20 @@ const Navbar = ({
           <div onClick={scrollToGraphicDesign} className="hover:text-gray-50">
             Graphic Design
           </div>
-
           <div onClick={scrollToShopifyStores} className="hover:text-gray-50">
-            Shopify Stores
+            Digital Marketing
           </div>
           <div onClick={scrollToBrands} className="hover:text-gray-50">
             Brands
           </div>
-
           <Link href="/pricing" className="hover:text-gray-50">
             Pricing
           </Link>
         </div>
 
+        {/* ✅ Mobile Dropdown */}
         <div className="flex md:hidden">
           {isDropDownVisible ? (
-            // display an x icon when the drop is visible
             <div
               onClick={toggleDropDown}
               className="w-8 h-8 text-slate-300 cursor-pointer"
@@ -84,7 +85,7 @@ const Navbar = ({
               <X />
               <DropDownMenu
                 onClose={closeDropDown}
-                scrollToServices={scrollToServices} // Pass scrollToServices
+                scrollToServices={scrollToServices}
               />
             </div>
           ) : (
@@ -95,16 +96,17 @@ const Navbar = ({
           )}
         </div>
 
+        {/* ✅ Contact Button */}
         <div className="hidden md:flex">
           <Link
             href="/contact"
             className="
-            inline-flex h-12 animate-shimmer items-center justify-center 
-            rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] 
-            bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors
-             focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2
+              inline-flex h-12 animate-shimmer items-center justify-center 
+              rounded-md border border-slate-800 
+              bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] 
+              bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors
+              focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2
               focus:ring-offset-slate-50
-
             "
           >
             Contact
