@@ -79,11 +79,11 @@ const Brands = () => {
           />
 
           <div className=" text-center">
-            <div className="text-sm  font-medium pt-4">Himanshu Singh</div>
-            <div className="text-sm">Marketing Director, CodeMinds Software</div>
+            <div className="text-sm  font-medium pt-4">Srirangam Srinivas Rao</div>
+            <div className="text-sm">Founder, CodeMinds Software</div>
           </div>
         </div>
-      </div>
+      </div>  
     </div>
   );
 };
