@@ -53,44 +53,39 @@
 //       },
 // ];
 
-
-
-
-
-
-import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { PiAppStoreLogo, PiHeadsetFill, PiLock, PiMegaphone, PiMonitor, PiStorefront } from "react-icons/pi";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 
-export function CardHoverEffectDemo() {
-  return (
-    <div className="max-w-5xl mx-auto px-8">
-      <HoverEffect items={projects} />
-    </div>
-  );
+// Define the type of the project items
+interface Project {
+  icon: React.ReactNode;
+  title: string;
+  description: React.ReactNode; // Change description type to ReactNode for JSX content
+  link?: string;
 }
 
-export const projects = [
+// Project data array
+export const projects: Project[] = [
   {
     icon: (
       <div className="bg-blue-100 p-4 rounded-full">
         <PiMonitor className="w-8 h-8 text-blue-600" />
       </div>
     ),
-    title: "Website Devlopment",
+    title: "Website Development",
     description: (
       <>
         We build fully responsive websites that look great on all devices. Our websites are designed to convert visitors into customers.{" "}
         <a
-        href="https://makeover-web-2.onrender.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-white bg-red-600 px-2 py-0.8 rounded hover:bg-red-700 transition"
+          href="https://makeover-web-2.onrender.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-red-600 hover:underline"
         >
           Visit Site
-
         </a>
       </>
-    ),
+    ), // Updated to JSX content instead of a string
     link: "https://makeover-web-2.onrender.com", // External link for Website Development
   },
   {
@@ -100,8 +95,7 @@ export const projects = [
       </div>
     ),
     title: "E-commerce Store",
-    description:
-      "From small stores to large online retailers, we have the expertise to build a store that will help you grow your business.",
+    description: "From small stores to large online retailers, we have the expertise to build a store that will help you grow your business.",
   },
   {
     icon: (
@@ -110,8 +104,7 @@ export const projects = [
       </div>
     ),
     title: "Authentication",
-    description:
-      "Secure authentication solutions for your website or app. We use the latest technology to keep your data safe.",
+    description: "Secure authentication solutions for your website or app. We use the latest technology to keep your data safe.",
   },
   {
     icon: (
@@ -120,8 +113,7 @@ export const projects = [
       </div>
     ),
     title: "Digital Marketing",
-    description:
-      "We offer AI-powered social media management and ad creation services — using intelligent AI tools to craft high-converting ads, engaging descriptions, and data-driven strategies to help you grow 10x and reach your ideal audience faster.",
+    description: "We offer AI-powered social media management and ad creation services — using intelligent AI tools to craft high-converting ads, engaging descriptions, and data-driven strategies to help you grow 10x and reach your ideal audience faster.",
   },
   {
     icon: (
@@ -130,8 +122,7 @@ export const projects = [
       </div>
     ),
     title: "App Development",
-    description:
-      "We build custom mobile apps for iOS and Android. Our apps are designed to be user-friendly and performant.",
+    description: "We build custom mobile apps for iOS and Android. Our apps are designed to be user-friendly and performant.",
   },
   {
     icon: (
@@ -140,7 +131,14 @@ export const projects = [
       </div>
     ),
     title: "Support",
-    description:
-      "We offer support for all our clients. We are here to help you with any issues or questions you may have.",
+    description: "We offer support for all our clients. We are here to help you with any issues or questions you may have.",
   },
 ];
+
+export function CardHoverEffectDemo() {
+  return (
+    <div className="max-w-5xl mx-auto px-8">
+      <HoverEffect items={projects} />
+    </div>
+  );
+}
