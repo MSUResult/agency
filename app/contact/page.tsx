@@ -7,6 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import * as z from "zod";
+import { FaPhone, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+
+
 
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -37,6 +40,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { PiCheckLight, PiSmiley } from "react-icons/pi";
 import Navbar from "@/components/navbar";
+import Link from "next/link";
 
 const FormSchema = z.object({
   first_name: z.string(),
@@ -249,7 +253,7 @@ export default function ContactForm() {
                 render={({ field }) => (
                   <FormItem className="items-center justify-center w-full">
                     <FormLabel className="text-sm bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
-                    Services you are interested in
+                      Services you are interested in
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -263,13 +267,17 @@ export default function ContactForm() {
                       <SelectContent>
                         <div className="flex gap-4">
                           <SelectItem value="Mobile App Develoment">
-                          Mobile App Develoment
+                            Mobile App Develoment
                           </SelectItem>
                         </div>
-                        <SelectItem value="Social Media Marketing">Social Media Marketing</SelectItem>
-                        <SelectItem value="51-200">51-200</SelectItem>
-                        <SelectItem value="501-1000">501-1000</SelectItem>
-                        <SelectItem value="1000+">1000+</SelectItem>
+                        <SelectItem value="Social Media Marketing">
+                          Social Media Marketing
+                        </SelectItem>
+                        <SelectItem value="UI/UX Design">UI/UX Design</SelectItem>
+                        <SelectItem value="Branding">Branding</SelectItem>
+                        <SelectItem value="Website Development">
+                          Website Development
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -289,10 +297,7 @@ export default function ContactForm() {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger
-                        
-                        
-                        >
+                        <SelectTrigger>
                           <SelectValue placeholder="Select an option" />
                         </SelectTrigger>
                       </FormControl>
@@ -390,6 +395,60 @@ export default function ContactForm() {
             </>
           )}
         </Form>
+      </div>
+      <div className="py-10 px-6 md:px-0 md:py-20 flex flex-col items-center justify-center text-center text-gray-300 space-y-4">
+        <div className="text-lg font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
+          Connect with us
+        </div>
+        <div className="space-y-3 bg-[#1c1c1c]/80 p-5 rounded-xl max-w-md mx-auto text-white shadow-lg backdrop-blur-sm border border-gray-600">
+  <div className="flex items-center text-sm gap-2">
+    <FaPhone className="text-green-500" />
+    <span>Contact Number:</span>
+    <Link href="tel:+919390228526" className="underline text-blue-400 hover:text-blue-200 transition">
+      +919390228526, +918125903360
+    </Link>
+  </div>
+
+  <div className="flex items-center text-sm gap-2">
+    <FaInstagram className="text-pink-500" />
+    <span>Instagram:</span>
+    <Link
+      href="https://www.instagram.com/codemindswebservices?igsh=bmoybHVzNjd5YnNh"
+      className="underline text-blue-400 hover:text-blue-200 transition"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      codemindswebservices
+    </Link>
+  </div>
+
+  <div className="flex items-center text-sm gap-2">
+    <FaLinkedin className="text-blue-500" />
+    <span>LinkedIn:</span>
+    <Link
+      href="https://www.linkedin.com/company/codeminds-web-services/"
+      className="underline text-blue-400 hover:text-blue-200 transition"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Codeminds Web Services
+    </Link>
+  </div>
+
+  <div className="flex items-center text-sm gap-2">
+    <FaYoutube className="text-red-500" />
+    <span>YouTube:</span>
+    <Link
+      href="https://www.youtube.com/@raoopvt"
+      className="underline text-blue-400 hover:text-blue-200 transition"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      CodeMinds
+    </Link>
+  </div>
+</div>
+
       </div>
     </div>
   );
