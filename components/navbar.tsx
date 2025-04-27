@@ -73,6 +73,9 @@ const Navbar = ({
           <Link href="/pricing" className="hover:text-gray-50">
             Pricing
           </Link>
+          <Link href="/internship" className="hover:text-neutral-400 cursor-pointer">
+    Internship
+  </Link>
         </div>
 
         {/* ✅ Mobile Dropdown */}
