@@ -15,39 +15,16 @@ interface EmailOptions {
     }[];
 }
 
-const sendEmail = async (mailOptions: EmailOptions) => {
-    // 🔐 Transporter 1 - Shivansh's Gmail
-    const transporter1 = nodemailer.createTransport({
+const createTransporter = (email: string, pass: string) => {
+    return nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth: {
-            user: "shivanshsingh4539@gmail.com",
-            pass: "ubwk effo ztdz cjkd",
+            user: email,
+            pass: pass,
         },
     });
-
-    // 🔐 Transporter 2 - Codeminds Gmail
-    const transporter2 = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: "codemindswebservices@gmail.com",
-            pass: "rqei uosc pfrx twma",
-        },
-    });
-
-    try {
-        // 📩 Send from Shivansh
-        await transporter1.sendMail(mailOptions);
-
-        // 📩 Send from Codeminds
-        await transporter2.sendMail(mailOptions);
-    } catch (error: any) {
-        console.error("Email send error:", error);
-        throw error;
-    }
 };
 
 export async function POST(req: Request) {
@@ -84,18 +61,29 @@ export async function POST(req: Request) {
         ${resumeFile instanceof File ? `<p><strong>Resume:</strong> ${resumeFile.name}</p>` : ''}
       `;
 
-            const mailOptions: EmailOptions = {
+            // Send to Shivansh
+            const transporter1 = createTransporter("shivanshsingh4539@gmail.com", "ubwk effo ztdz cjkd");
+            await transporter1.sendMail({
                 from: "shivanshsingh4539@gmail.com",
-                to: ["shivanshsingh4539@gmail.com", "codemindswebservices@gmail.com"],
+                to: "shivanshsingh4539@gmail.com",
                 replyTo: email,
-                subject: "Internship Application",
+                subject: "Internship Application - Shivansh",
                 html: htmlContent,
                 attachments: attachment ? [attachment] : [],
-            };
+            });
 
-            await sendEmail(mailOptions);
+            // Send to Codeminds
+            const transporter2 = createTransporter("codemindswebservices@gmail.com", "rqei uosc pfrx twma");
+            await transporter2.sendMail({
+                from: "codemindswebservices@gmail.com",
+                to: "codemindswebservices@gmail.com",
+                replyTo: email,
+                subject: "Internship Application - Codeminds",
+                html: htmlContent,
+                attachments: attachment ? [attachment] : [],
+            });
 
-            return NextResponse.json({ message: "Email sent successfully" }, { status: 200 });
+            return NextResponse.json({ message: "Emails sent successfully" }, { status: 200 });
         } catch (error: any) {
             console.error("Email send error:", error);
             return NextResponse.json({ error: "Email sending failed" }, { status: 500 });

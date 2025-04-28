@@ -32,7 +32,7 @@ export const CardContainer = ({
       containerRef.current.getBoundingClientRect();
     const x = (e.clientX - left - width / 2) / 25;
     const y = (e.clientY - top - height / 2) / 25;
-    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    containerRef.current.style.transform = `rotateY(₹{x}deg) rotateX(₹{y}deg)`;
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -127,7 +127,7 @@ export const CardItem = ({
   const handleAnimations = () => {
     if (!ref.current) return;
     if (isMouseEntered) {
-      ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+      ref.current.style.transform = `translateX(₹{translateX}px) translateY(₹{translateY}px) translateZ(₹{translateZ}px) rotateX(₹{rotateX}deg) rotateY(₹{rotateY}deg) rotateZ(₹{rotateZ}deg)`;
     } else {
       ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
     }

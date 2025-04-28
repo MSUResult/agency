@@ -164,7 +164,7 @@ const InternshipPage = () => {
                             {loading ? 'Submitting...' : 'Submit Application'}
                         </Button>
                         {submissionStatus && (
-                            <p className={`mt-4 text-center ${submissionStatus.includes('success') ? 'text-green-500' : 'text-red-500'}`}>
+                            <p className={`mt-4 text-center ₹{submissionStatus.includes('success') ? 'text-green-500' : 'text-red-500'}`}>
                                 {submissionStatus}
                             </p>
                         )}

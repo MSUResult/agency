@@ -16,13 +16,13 @@ export async function POST(req: Request) {
 
       const htmlContent = `
         <h1>Contact Form</h1>
-        <p><strong>First Name:</strong> ${first_name}</p>
-        <p><strong>Last Name:</strong> ${last_name}</p>
-        <p><strong>Work Email:</strong> ${email}</p>
-        <p><strong>Company Name:</strong> ${company_name}</p>
-        <p><strong>Company Size:</strong> ${company_size}</p>
-        <p><strong>Help:</strong> ${help}</p>
-        <p><strong>Info:</strong> ${info}</p>
+        <p><strong>First Name:</strong> ₹{first_name}</p>
+        <p><strong>Last Name:</strong> ₹{last_name}</p>
+        <p><strong>Work Email:</strong> ₹{email}</p>
+        <p><strong>Company Name:</strong> ₹{company_name}</p>
+        <p><strong>Company Size:</strong> ₹{company_size}</p>
+        <p><strong>Help:</strong> ₹{help}</p>
+        <p><strong>Info:</strong> ₹{info}</p>
       `;
 
       // 🔐 Transporter 1 - Shivansh's Gmail
