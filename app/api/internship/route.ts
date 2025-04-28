@@ -38,11 +38,16 @@ const sendEmail = async (mailOptions: EmailOptions) => {
         },
     });
 
-    // 📩 Send from Shivansh
-    await transporter1.sendMail(mailOptions);
+    try {
+        // 📩 Send from Shivansh
+        await transporter1.sendMail(mailOptions);
 
-    // 📩 Send from Codeminds
-    await transporter2.sendMail(mailOptions);
+        // 📩 Send from Codeminds
+        await transporter2.sendMail(mailOptions);
+    } catch (error: any) {
+        console.error("Email send error:", error);
+        throw error; // Re-throw the error to be caught in the POST handler
+    }
 };
 
 export async function POST(req: Request) {
@@ -82,7 +87,7 @@ export async function POST(req: Request) {
 
             const mailOptions: EmailOptions = {
                 from: "shivanshsingh4539@gmail.com", // Or codemindswebservices@gmail.com,
-                to: "shivanshsingh4539@gmail.com",       // and    codemindswebservices@gmail.com
+                to: "shivanshsingh4539@gmail.com",         // and     codemindswebservices@gmail.com
                 replyTo: email,
                 subject: "Internship Application",
                 html: htmlContent,
@@ -92,12 +97,11 @@ export async function POST(req: Request) {
             await sendEmail(mailOptions);
 
             return NextResponse.json({ message: "Email sent successfully" }, { status: 200 });
-        } catch (error) {
+        } catch (error: any) {
             console.error("Email send error:", error);
-            return NextResponse.json({ error: "Email sending failed" }, { status: 500 });
+            return NextResponse.json({ error: "Email sending failed" }, { status: 500 }); // Keep it simple
         }
     } else {
         return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
     }
 }
-

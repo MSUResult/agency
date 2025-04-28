@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { File } from 'lucide-react';
-import { useToast } from "@/components/ui/use-toast" // Changed import path
+import { useToast } from "@/components/ui/use-toast"
 
 const InternshipPage = () => {
     const [name, setName] = useState('');
@@ -49,41 +49,30 @@ const InternshipPage = () => {
         }
 
         try {
-            const response = await fetch('/api/internship', {
+            const res = await fetch('/api/internship', {
                 method: 'POST',
                 body: formData,
             });
 
-            // *** IMPORTANT:  Handle the response correctly! ***
-            const data = await response.json(); // Parse the JSON response
-
-            if (response.ok) {
-                // Email sent successfully!  Get message from server
-                setName('');
-                setEmail('');
-                setInterest('');
-                setResume(null);
-                setSubmissionStatus('Application submitted successfully!');
-                toast({
-                    title: "Success",
-                    description: data.message, // Use the message from the server!
-                });
-            } else {
-                // Handle the error from the server.  Get error from server!
-                setSubmissionStatus('Failed to submit application.');
-                toast({
-                    title: "Error",
-                    description: data.error || "Something went wrong", // Use error from server
-                });
+            if (!res.ok) {
+                throw new Error('Failed to send application.');
             }
 
+            setName('');
+            setEmail('');
+            setInterest('');
+            setResume(null);
+            setSubmissionStatus('Application submitted successfully!');
+            toast({
+                title: "Success",
+                description: "Your application has been submitted successfully!",
+            })
         } catch (error: any) {
-            // Handle network errors or other exceptions
             setSubmissionStatus('Failed to submit application.');
             toast({
                 title: "Error",
-                description: "An error occurred while submitting your application.",
-            });
+                description: error.message || "Something went wrong",
+            })
         } finally {
             setLoading(false);
         }
