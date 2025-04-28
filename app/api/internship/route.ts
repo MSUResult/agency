@@ -4,7 +4,7 @@ import { ReadStream } from 'fs';
 
 interface EmailOptions {
     from: string;
-    to: string;
+    to: string | string[];
     replyTo: string;
     subject: string;
     html: string;
@@ -23,7 +23,7 @@ const sendEmail = async (mailOptions: EmailOptions) => {
         secure: true,
         auth: {
             user: "shivanshsingh4539@gmail.com",
-            pass: "ubwk effo ztdz cjkd", // 🔑 replace with real app password
+            pass: "ubwk effo ztdz cjkd",
         },
     });
 
@@ -34,7 +34,7 @@ const sendEmail = async (mailOptions: EmailOptions) => {
         secure: true,
         auth: {
             user: "codemindswebservices@gmail.com",
-            pass: "rqei uosc pfrx twma", // 🔑 replace with real app password
+            pass: "rqei uosc pfrx twma",
         },
     });
 
@@ -46,7 +46,7 @@ const sendEmail = async (mailOptions: EmailOptions) => {
         await transporter2.sendMail(mailOptions);
     } catch (error: any) {
         console.error("Email send error:", error);
-        throw error; // Re-throw the error to be caught in the POST handler
+        throw error;
     }
 };
 
@@ -66,12 +66,11 @@ export async function POST(req: Request) {
             let attachment: { filename: string; content: Buffer | ReadStream; encoding?: string } | undefined;
 
             if (resumeFile) {
-                // Safely cast to File. formData.get('resume') returns a File if it's a file.
                 if (resumeFile instanceof File) {
                     const buffer = await resumeFile.arrayBuffer();
                     const fileContent = Buffer.from(buffer);
                     attachment = {
-                        filename: resumeFile.name, // Now it's safe to access .name
+                        filename: resumeFile.name,
                         content: fileContent,
                     };
                 }
@@ -86,8 +85,8 @@ export async function POST(req: Request) {
       `;
 
             const mailOptions: EmailOptions = {
-                from: "shivanshsingh4539@gmail.com", // Or codemindswebservices@gmail.com,
-                to: "shivanshsingh4539@gmail.com",         // and     codemindswebservices@gmail.com
+                from: "shivanshsingh4539@gmail.com",
+                to: ["shivanshsingh4539@gmail.com", "codemindswebservices@gmail.com"],
                 replyTo: email,
                 subject: "Internship Application",
                 html: htmlContent,
@@ -99,7 +98,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "Email sent successfully" }, { status: 200 });
         } catch (error: any) {
             console.error("Email send error:", error);
-            return NextResponse.json({ error: "Email sending failed" }, { status: 500 }); // Keep it simple
+            return NextResponse.json({ error: "Email sending failed" }, { status: 500 });
         }
     } else {
         return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
