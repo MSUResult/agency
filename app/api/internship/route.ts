@@ -23,7 +23,7 @@ const sendEmail = async (mailOptions: EmailOptions) => {
         secure: true,
         auth: {
             user: "shivanshsingh4539@gmail.com",
-            pass: "ubwk effo ztdz cjkd", //  <===  App Password or Correct Password
+            pass: "ubwk effo ztdz cjkd", // 🔑 replace with real app password
         },
     });
 
@@ -34,7 +34,7 @@ const sendEmail = async (mailOptions: EmailOptions) => {
         secure: true,
         auth: {
             user: "codemindswebservices@gmail.com",
-            pass: "wscb pduy cmuk tbdp", //  <=== App Password or Correct Password
+            pass: "wscb pduy cmuk tbdp", // 🔑 replace with real app password
         },
     });
 
@@ -61,10 +61,12 @@ export async function POST(req: Request) {
             let attachment: { filename: string; content: Buffer | ReadStream; encoding?: string } | undefined;
 
             if (resumeFile) {
+                //  Safely cast to File.  formData.get('resume') returns a File if it's a file.
+                const file = resumeFile as File;
                 const buffer = await resumeFile.arrayBuffer();
                 const fileContent = Buffer.from(buffer);
                 attachment = {
-                    filename: resumeFile.name,
+                    filename: file.name, // Now it's safe to access .name
                     content: fileContent,
                 };
             }
