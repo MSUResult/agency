@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         secure: true,
         auth: {
           user: "codemindswebservices@gmail.com",
-          pass: "wscb pduy cmuk tbdp", // 🔑 replace with real app password
+          pass: "rqei uosc pfrx twma", // 🔑 replace with real app password
         },
       });
 
