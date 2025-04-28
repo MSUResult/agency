@@ -61,14 +61,15 @@ export async function POST(req: Request) {
             let attachment: { filename: string; content: Buffer | ReadStream; encoding?: string } | undefined;
 
             if (resumeFile) {
-                //  Safely cast to File.  formData.get('resume') returns a File if it's a file.
-                const file = resumeFile as File;
-                const buffer = await resumeFile.arrayBuffer();
-                const fileContent = Buffer.from(buffer);
-                attachment = {
-                    filename: file.name, // Now it's safe to access .name
-                    content: fileContent,
-                };
+                // Safely cast to File. formData.get('resume') returns a File if it's a file.
+                if (resumeFile instanceof File) {
+                    const buffer = await resumeFile.arrayBuffer();
+                    const fileContent = Buffer.from(buffer);
+                    attachment = {
+                        filename: resumeFile.name, // Now it's safe to access .name
+                        content: fileContent,
+                    };
+                }
             }
 
             const htmlContent = `
@@ -76,12 +77,12 @@ export async function POST(req: Request) {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Area of Interest:</strong> ${interest}</p>
-        ${resumeFile ? `<p><strong>Resume:</strong> ${resumeFile.name}</p>` : ''}
+        ${resumeFile instanceof File ? `<p><strong>Resume:</strong> ${resumeFile.name}</p>` : ''}
       `;
 
             const mailOptions: EmailOptions = {
                 from: "shivanshsingh4539@gmail.com", // Or codemindswebservices@gmail.com,
-                to: "shivanshsingh4539@gmail.com",    // and  codemindswebservices@gmail.com
+                to: "shivanshsingh4539@gmail.com",       // and    codemindswebservices@gmail.com
                 replyTo: email,
                 subject: "Internship Application",
                 html: htmlContent,
